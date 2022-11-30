@@ -1,5 +1,7 @@
 # egauge
 
+[![Container](https://github.com/major/egauge/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/major/egauge/actions/workflows/docker-publish.yml)
+
 Container for monitoring data from an eGauge solar meter.
 
 Run the container with the `EGAUGE_ADDRESS` environment variable set to the IP address of the eGauge meter.
