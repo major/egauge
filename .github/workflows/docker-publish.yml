@@ -82,8 +82,10 @@ jobs:
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
+        run: |
+          echo "${{ steps.meta.outputs.tags }}" | \
+            xargs -I {} cosign sign --key env://SIGNING_SECRET {}@${{ steps.build-and-push.outputs.digest }}
         env:
           COSIGN_EXPERIMENTAL: "true"
-        # This step uses the identity token to provision an ephemeral certificate
-        # against the sigstore community Fulcio instance.
-        run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
+          COSIGN_PASSWORD: ""
+          SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
